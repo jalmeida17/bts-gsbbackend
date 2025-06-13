@@ -25,17 +25,24 @@ API backend développée en Node.js pour le système de gestion GSB. Cette API R
 
 ## Structure du Projet
 ```
-├── src/
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   ├── middleware/
-│   ├── services/
-│   ├── utils/
-│   └── config/
-├── tests/
-├── uploads/
-└── docs/
+bts-gsbbackend/
+├── controllers/
+│   ├── authentication_controller.js
+│   ├── bill_controller.js
+│   └── user_controller.js
+├── middleware/
+│   └── upload.js
+├── models/
+│   ├── bill_model.js
+│   └── user_model.js
+├── routes/
+│   ├── authentication_route.js
+│   ├── bill_route.js
+│   └── user_route.js
+├── utils/
+│   └── s3.js
+├── index.js
+└── package.json
 ```
 
 ## Installation et Configuration
