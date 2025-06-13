@@ -40,9 +40,9 @@ const getBills = async (req, res) => {
         const { id, role } = req.user
         let bills
         if (role === 'admin') {
-            bills = await Bill.find({})
+            bills = await Bill.find({}).populate('user', 'name email role')
         } else {
-            bills = await Bill.find({ user: id })
+            bills = await Bill.find({ user: id }).populate('user', 'name email role')
         }
         res.status(200).json(bills)
     } catch (error) {
@@ -53,7 +53,7 @@ const getBills = async (req, res) => {
 const getBillById = async (req, res) => {
     try {
         const { id } = req.params
-        const bill = await Bill.findById(id)
+        const bill = await Bill.findById(id).populate('user', 'name email role')
         if (!bill) {
             throw new Error('Bill not found', { cause: 404 })
         } else {
@@ -76,7 +76,7 @@ const updateBill = async (req, res) => {
             id,
             { date, amount, proof, description, status, type },
             { new: true }
-        )
+        ).populate('user', 'name email role')
         if (!bill) {
             throw new Error('Bill not found', { cause: 404 })
         } else {
