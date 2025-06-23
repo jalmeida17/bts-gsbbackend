@@ -18,10 +18,16 @@ const createUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
     try {
-        // if email is provided, find user by email else find all users
         const email = req.query.email ? {email: req.query.email} : {}
-        const users = await User.find(email)
-        res.status(200).json(users)
+        const users = await User.find(email).lean() // Use .lean() for performance
+        
+        // Ensure all users have subRole field
+        const usersWithSubRole = users.map(user => ({
+            ...user,
+            subRole: user.subRole || null
+        }));
+        
+        res.status(200).json(usersWithSubRole)
     } catch (error) {
         res.status(500).json({ message: "Server error" })
     }
@@ -30,10 +36,12 @@ const getUsers = async (req, res) => {
 const getUserByEmail = async (req, res) => {
     try {
         const { email } = req.query
-        const user = await User.findOne({ email })
+        const user = await User.findOne({ email }).lean()
         if (!user) {
             throw new Error('User not found', { cause: 404 })
         } else {
+            // Ensure subRole exists
+            user.subRole = user.subRole || null;
             res.status(200).json(user)
         }
     } catch (error) {

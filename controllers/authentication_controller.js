@@ -14,7 +14,14 @@ const login = async (req, res) => {
     if (user.password !== sha256(password + process.env.SALT)) {
        return res.status(401).json({ message: 'Invalid email or password' })
     }
-    const token = jwt.sign({ id: user._id, role: user.role, email: user.email }, process.env.JWT_SECRET, { expiresIn: '24h' })
+    
+    const token = jwt.sign({ 
+        id: user._id, 
+        role: user.role, 
+        subRole: user.subRole || null, // Handle case where subRole doesn't exist
+        email: user.email 
+    }, process.env.JWT_SECRET, { expiresIn: '24h' })
+    
     res.status(200).json({ token })
 }
 
