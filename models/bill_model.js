@@ -23,16 +23,31 @@ const billSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    required: true,
+    enum: ['draft', 'pending', 'approved', 'rejected'],
+    default: 'pending'
   },
   type: {
     type: String,
     required: true,
   },
+  // Validation tracking
+  currentValidationLevel: {
+    type: Number,
+    default: 1 // Starts at level 1
+  },
+  maxValidationLevel: {
+    type: Number,
+    required: true // Set based on amount
+  },
+  validations: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Validation'
+  }],
   createdAt: {
     type: String,
     default: Date.now(),
   },
 })
+
 const Bill = mongoose.model('Bills', billSchema)
 module.exports = Bill
