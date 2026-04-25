@@ -8,6 +8,8 @@
   <img src="https://img.shields.io/badge/AWS_SDK-2.1692.0-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white" alt="AWS" style="display:inline-block; margin:2px;">
 </p>
 
+> Read in [French](README.fr.md)
+
 ## Academic Project Notice
 
 This project is developed as part of a school assignment for educational purposes. It demonstrates backend development skills, including RESTful API design, database management, authentication, and cloud storage integration. **This application is not intended for professional or production use** and serves solely as a learning exercise and portfolio piece.
